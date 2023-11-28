@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Météo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="weather-widget">
+    <h2>Météo</h2>
+    <p id="location">Chargement...</p>
+    <p id="temperature">--°C</p>
+    <p id="description">Chargement...</p>
+</div>
+
+<script>
+    const apiKey = 'VOTRE_CLÉ_API';
+    const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=Paris&units=metric&appid=' + apiKey;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('location').textContent = data.name;
+            document.getElementById('temperature').textContent = data.main.temp + '°C';
+            document.getElementById('description').textContent = data.weather[0].description;
+        })
+        .catch(error => console.error('Erreur lors de la récupération des données météo:', error));
+</script>
+
+</body>
+</html>
